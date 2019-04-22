@@ -15,12 +15,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DemoService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DemoService.class);
 
-    @Reference(version = "${dubbo.application.version}", owner = "${dubbo.application.owner}")
+    private Logger logger = LoggerFactory.getLogger(DemoService.class);
+
+    @Reference(version = "${dubbo.application.version}", owner = "${dubbo.application.owner}", protocol = "dubbo")
     private DemoApi demoApi;
 
     public String sayHello(String name) {
+        logger.debug(name);
         return demoApi.sayHello(name);
     }
 }
